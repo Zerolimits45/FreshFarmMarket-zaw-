@@ -1,0 +1,116 @@
+﻿@page
+@model FreshFarmMarket.Pages.RegisterModel
+@{
+}
+
+<div class="container mt-5">
+	<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+	<div class="row justify-content-center align-items-center">
+
+		<div class="col-sm-12 col-md-12 col-lg-4">
+			<h1 class="mb-3">Register </h1>
+
+			<form method="post" enctype="multipart/form-data" asp-antiforgery="true">
+				<div asp-validation-summary="All" class="text-danger"></div>
+
+				<div class="mb-3">
+					<label class="form-label" asp-for="RModel.FullName">Full Name</label>
+					<input type="Text" asp-for="RModel.FullName" class="form-control" />
+					<span asp-validaton-for="RModel.FullName" class="text-danger"></span>
+				</div>
+
+				<div class="mb-3">
+					<label class="form-label" asp-for="RModel.CreditCard">Credit Card</label>
+					<input type="Text" asp-for="RModel.CreditCard" class="form-control" />
+					<span asp-validaton-for="RModel.CreditCard" class="text-danger"></span>
+				</div>
+
+				<div class="mb-3">
+					<label class="form-label" asp-for="RModel.Gender">Gender</label>
+					<input type="Text" asp-for="RModel.Gender" class="form-control" />
+					<span asp-validaton-for="RModel.Gender" class="text-danger"></span>
+				</div>
+
+				<div class="mb-3">
+					<label class="form-label" asp-for="RModel.MobileNo">Mobile Number</label>
+					<input type="Text" asp-for="RModel.MobileNo" class="form-control" />
+					<span asp-validaton-for="RModel.MobileNo" class="text-danger"></span>
+				</div>
+
+				<div class="mb-3">
+					<label class="form-label" asp-for="RModel.DeliveryAddress">Delivery Address</label>
+					<input type="Text" asp-for="RModel.DeliveryAddress" class="form-control" />
+					<span asp-validaton-for="RModel.DeliveryAddress" class="text-danger"></span>
+				</div>
+
+				<div class="mb-3">
+					<label class="form-label" asp-for="RModel.Email">Email Address</label>
+					<input type="Text" asp-for="RModel.Email" class="form-control" />
+					<span asp-validaton-for="RModel.Email" class="text-danger"></span>
+				</div>
+
+				<div class="mb-3">
+					<label class="form-label" asp-for="RModel.Password">Password</label>
+					<input type="password" asp-for="RModel.Password" class="form-control" id="Password" name="Password" />
+					<span asp-validation-for="RModel.Password" class="text-danger"></span>
+
+					<!-- Password strength indicator -->
+					<div id="password-strength-indicator" class="mt-2"></div>
+				</div>
+
+				<div class="mb-3">
+					<label class="form-label" asp-for="RModel.ConfirmPassword">Confirm Password</label>
+					<input type="password" asp-for="RModel.ConfirmPassword" class="form-control" />
+					<span asp-validaton-for="RModel.ConfirmPassword" class="text-danger"></span>
+				</div>
+
+				<div class="mb-3">
+					<label class="form-label" asp-for="RModel.Photo">Photo</label>
+					<input type="file" asp-for="RModel.Photo" class="form-control" accept=".jpg" />
+					<span asp-validaton-for="RModel.Photo" class="text-danger"></span>
+				</div>
+
+				<div class="mb-3">
+					<label class="form-label" asp-for="RModel.AboutMe">About Me</label>
+					<input type="Text" asp-for="RModel.AboutMe" class="form-control" />
+					<span asp-validaton-for="RModel.AboutMe" class="text-danger"></span>
+				</div>
+
+				
+				<div class="mb-3">
+					<button type="submit" class="btn btn-primary">Register</button>
+				</div>
+			</form>
+		</div>
+	</div>
+</div>
+
+<script>
+	$(document).ready(function () {
+		$('#Password').on('input', function () {
+			var password = $(this).val();
+
+			// Password strength checking logic
+			var hasLowerCase = /[a-z]/.test(password);
+			var hasUpperCase = /[A-Z]/.test(password);
+			var hasNumber = /\d/.test(password);
+			var hasSpecialChar = /[^\da-zA-Z]/.test(password);
+
+			// Calculate overall strength based on the conditions
+			var strength = 'Weak';
+			var color = "red";
+
+			if (password.length >= 8 && hasLowerCase && hasUpperCase && hasNumber && hasSpecialChar) {
+				strength = 'Strong';
+				color = "green";
+			} else if (password.length >= 8 && (hasLowerCase || hasUpperCase || hasNumber || hasSpecialChar)) {
+				strength = 'Moderate';
+				color = "orange";
+			}
+
+			// Update the indicator
+			$('#password-strength-indicator').html('Password Strength: <span style="color: ' + color + ';">' + strength + '</span>');
+		});
+	});
+</script>
